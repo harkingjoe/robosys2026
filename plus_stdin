@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 import sys
 
-x = 0
-for line in sys.stdin:      #plus_bのsys.argv[1:]をsys.stdinに変えただけ
+
+def tonum(s):   #def 関数の名前(引数)で関数を定義
     try:
-        x += int(line)        #floatは前後の改行や空白を無視するのでstrip不要
+        return int(s)
     except ValueError:
-        x += float(line)
+        return float(s)
+
+
+x = 0
+for line in sys.stdin:
+    x += tonum(line)
 
 print(x)
