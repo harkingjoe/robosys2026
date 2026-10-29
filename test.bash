@@ -9,8 +9,19 @@ ng () {                               # 関数ngの定義（P18と同じ）
 
 res=0                                  # 0: 失敗なし（ngが呼ばれると1になる）
 
-out=$(seq 5 | ./plus)                  # 表の1行目: plusの出力を変数outに記録
-[ "${out}" = 15 ] || ng "$LINENO"      # 期待する出力（15）でなければngを呼び出す
+### NORMAL INPUT ###
+out=$(seq 5 | ./plus)
+[ "$?" = 0 ]      || ng "$LINENO"
+[ "${out}" = 15 ] || ng "$LINENO"
 
-[ "${res}" = 0 ] && echo OK            # 通ったのが（人間に）分かるように表示
-exit $res                              # 終了ステータスを返して終了（機械向け）
+### STRANGE INPUT ###
+out=$(echo あ | ./plus)           #計算できない値を入力してみる
+[ "$?" = 1 ]      || ng "$LINENO" #終了ステータスが1なのを確認
+[ "${out}" = "" ] || ng "$LINENO" #上の行と入れ替えるとダメ（なぜ？）
+
+out=$(echo | ./plus)              #なにも入力しない
+[ "$?" = 1 ]      || ng "$LINENO" #これも異常終了する
+[ "${out}" = "" ] || ng "$LINENO"
+
+[ "${res}" = 0 ] && echo OK
+exit $res
