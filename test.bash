@@ -1,5 +1,5 @@
 #!/bin/bash
-# SPDX-FileCopyrightText: 2026 Taro Suzuki
+# SPDX-FileCopyrightText: 2026 Haruto Kinjo
 # SPDX-License-Identifier: BSD-3-Clause
 
 ng () {                               # 関数ngの定義（P18と同じ）
